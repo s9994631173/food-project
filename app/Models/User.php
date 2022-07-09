@@ -47,17 +47,17 @@ class User extends Authenticatable
         $alredyRegister = self::where('email', '=', $validated['email'])->value('email');
 
         if($alredyRegister){
-            return ['errors' => [
+            return response(['errors' => [
                 'user is register' => [
                     0 => 'Пользователь с такой почтой уже зарегистрирован'
                 ]
-            ]];
+            ]], 422);
         }else{
             $user = self::create($validated);
             Auth::login($user);
             $username = Auth::user()->name;
 
-            return ['user name' => $username];
+            return response(['userName' => $username], 200);
         }
     }
 }

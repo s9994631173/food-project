@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default{
     data: function(){
         return{
@@ -36,35 +38,34 @@ export default{
     },
     methods: {
         formSubmit: function(){
-            fetch('http://localhost:8000/sanctum/csrf-cookie')
+
             function getCookie(name) {
                 let matches = document.cookie.match(new RegExp(
                     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
                 ));
                 return matches ? decodeURIComponent(matches[1]) : undefined;
             }
+
+            axios.get('http://localhost:8000/sanctum/csrf-cookie')
             let csrf = getCookie('XSRF-TOKEN')
 
-            let form = new FormData();
-            form.append('email', this.email)
-            form.append('password', this.password)
-
-            fetch('http://localhost:8000/api/login', {
-                method: 'POST',
-                body: form
+            axios.post('http://localhost:8000/login', {
+                email: this.email,
+                password: this.password
             })
-            .catch(e => console.log(e))
-            .then(response => response.json())
             .then(response => {
-
-                if(response.errors){
-                    this.errors = response.errors
-                }
-                if (response.token){
-                    this.$store.commit('addToken', response.token)
+                if (response.data.userName){
+                    this.$store.commit('addName', response.data.userName)
                     this.$router.push('app')
                 }
             })
+            .catch(error => {
+                if(error.response.data.errors){
+                    this.errors = error.response.data.errors
+                }
+            })
+
+            
         }
     }
 }

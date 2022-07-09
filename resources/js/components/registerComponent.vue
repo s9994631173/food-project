@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default{
     data: function(){
         return{
@@ -44,25 +46,20 @@ export default{
     },
     methods: {
         formSubmit: function(){
-            let form = new FormData();
-            form.append('email', this.email)
-            form.append('name', this.name)
-            form.append('password', this.password)
-
-            fetch('http://localhost:8000/api/register', {
-                method: 'POST',
-                body: form
+            axios.post('http://localhost:8000/api/register', {
+                email: this.email,
+                name: this.name,
+                password: this.password
             })
-            .catch(e => console.log(e))
-            .then(response => response.json())
             .then(response => {
-
-                if(response.errors){
-                    this.errors = response.errors
-                }
-                if (response.token){
-                    this.$store.commit('addToken', response.token)
+                if (response.data.userName){
+                    this.$store.commit('addName', response.data.userName)
                     this.$router.push('app')
+                }
+            })
+            .catch(error => {
+                if(error.response.data.errors){
+                    this.errors = error.response.data.errors
                 }
             })
         }

@@ -3,13 +3,13 @@ import { createStore } from 'vuex'
 const store = createStore({
     state () {
       return {
-        token: null,
+        userName: null,
         date: new Date(),
       }
     },
     mutations: {
-        addToken(state, token){
-          state.token = token
+        addName(state, name){
+          state.userName = name
         },
     },
     getters: {

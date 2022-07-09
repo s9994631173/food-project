@@ -20,17 +20,17 @@ class LoginController extends Controller
             
             $user = Auth::user();
 
-            return [
-                    'user name' => $user['name']
-                    ];
+            return response([
+                    'userName' => $user['name']
+                    ], 200);
         }
-        return ([
+        return response([
             'errors' => [
                 'Failed auth' => [
                     0 => 'Не верный логин/пароль'
                 ]
             ],
-        ]);
+        ], 422);
     }
 
     public function register(RegisterRequest $request){
