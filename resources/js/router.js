@@ -18,9 +18,10 @@ const routes = [
     },
     {
         path: '/app', 
-        component: () => import('./App.vue'), 
+        component: () => import('./components/appComponent.vue'), 
         name: 'app'
     },
+
 ]
 
 const router = createRouter({
