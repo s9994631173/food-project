@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,9 @@ Route::get('/', function () {
 });
 
 Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/logout', function(Request $request){
+    Auth::logout();
+    $request->session()->invalidate();
+    return redirect('/');
+});
