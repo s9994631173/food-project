@@ -24,3 +24,7 @@ Route::post('/register', [LoginController::class, 'register']);
 Route::middleware('auth:sanctum')->post('/test', function(){
     return 'TTT';
 });
+
+Route::middleware('auth:sanctum')->post('/checkLogin', function(Request $request){
+    return $request->user();
+});

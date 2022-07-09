@@ -63,6 +63,16 @@ export default{
                 }
             })
         }
+    },
+    mounted() {
+        axios.post('/api/checkLogin')
+        .then(response => {
+                if (response.data.name){
+                    this.$store.commit('addName', response.data.name)
+                    this.$router.push('app')
+                }
+            })
+        .catch()
     }
 }
 </script>
