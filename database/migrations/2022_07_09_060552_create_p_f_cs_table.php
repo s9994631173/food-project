@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('p_f_cs', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->string('user_id');
+            $table->string('proteins')->default(0);
+            $table->string('fats')->default(0);
+            $table->string('carbohydrates')->default(0);
+            $table->string('KKAL')->default(0);
             $table->timestamps();
         });
     }
