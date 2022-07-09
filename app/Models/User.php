@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function register($validated){
+        $alredyRegister = self::where('email', '=', $validated['email'])->value('email');
+
+        if($alredyRegister){
+            return ['errors' => [
+                'user is register' => [
+                    0 => 'Пользователь с такой почтой уже зарегистрирован'
+                ]
+            ]];
+        }else{
+            $user = self::create($validated);
+
+            $token = $user->createToken('user-token');
+            return ['token' => $token->plainTextToken];
+        }
+    }
 }
