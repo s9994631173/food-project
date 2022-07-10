@@ -11,16 +11,18 @@
             </div>
             <div class="col gy-4">
                 <div class="row justify-content-center">
-                    <div class="col-2 clr">
+                    <div class="col-2">
                         <Weight/>
                     </div>
-                    <div class="col-5 clr">
+                    <div class="col-5 ms-auto">
                         <PFC/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="row">
-                        <div class="col gy-3 clr">Завтрак</div>
+                        <div class="col gy-3 clr">
+                            <Breakfast/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,22 +34,21 @@
 import Weight from './app/weightComponent.vue'
 import PFC from './app/pfcComponent.vue'
 
+import Breakfast from './app/foods/breakfastComponent.vue'
+
 export default{
     components: {
         Weight,
-        PFC
+        PFC,
+        Breakfast
+    },
+    data: () => {
+        return{
+            r: []
+        }
     },
     mounted (){
-        let dateToday = this.$store.getters.date
-        axios.post('/api/today', {
-            date: dateToday
-        })
-        .then(response => {
-            this.$store.commit('addWeight', response.data.today.weight)
-            this.$store.commit('addNutritions', response.data.today.PFC)
-            this.$store.commit('addProducts', response.data.today.products)
-            this.$store.commit('addWeek', response.data.week)
-        })
+        this.$store.dispatch('getData')
     }
 }
 </script>
@@ -59,5 +60,7 @@ export default{
     }
     .clr{
         background: #292c31 !important;
+        border-radius: 20px;
+        padding: 10px 20px;
     }
 </style>

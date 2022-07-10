@@ -1,5 +1,6 @@
 <template>
-    <div class="input-group input-group-sm mb-3">
+    <div style="margin: 10px;">
+        <div class="input-group input-group-sm mb-2">
         <span class="input-group-text" id="inputGroup-sizing-sm">Б</span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="pr">
         <span class="input-group-text" id="inputGroup-sizing-sm">Ж</span>
@@ -8,6 +9,7 @@
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="cb">
         <span class="input-group-text" id="inputGroup-sizing-sm">Ккал</span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="Kcal">
+        </div>
     </div>
 </template>
 

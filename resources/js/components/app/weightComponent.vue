@@ -1,11 +1,13 @@
 <template>
-    <div class="input-group input-group-sm mb-3">
+    <div style="margin: 10px">
+        <div class="input-group input-group-sm mb-2">
         <div class="form-floating" v-if="errors">
             <div class="text-danger"> {{ errors }} </div>
         </div>
 
         <span class="input-group-text" id="inputGroup-sizing-sm">Вес</span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="weight">
+    </div>
     </div>
 </template>
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('user_id');
             $table->string('product');
+            $table->string('weight');
             $table->string('pr');
             $table->string('ft');
             $table->string('cb');
