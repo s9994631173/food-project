@@ -13,3 +13,9 @@
 INPUT {
     background: #3d4145 !important;
 }
+
+.search {
+    position: absolute !important;
+    max-height: 200px;
+    overflow: auto;
+}

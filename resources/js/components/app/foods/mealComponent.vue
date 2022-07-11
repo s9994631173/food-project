@@ -1,8 +1,9 @@
 <template>
 <div>
+    <notifications position="bottom right"/>
     <div class="d-flex">
         <div class="flex-grow-1 p-1">
-            <span class="badge rounded-pill bg-warning text-dark mb-2">Завтрак</span>
+            <span class="badge rounded-pill bg-warning text-dark mb-2">{{title.name}}</span>
         </div>
         <div class="p-1">
             <span class="badge bg-danger">Б <span> {{ nutritions.pr }} </span></span>
@@ -19,7 +20,12 @@
     </div>
     <div class="row g-3">
         <div class="col">
-            <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product">
+            <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true">
+            <div class="search" v-click-away="onClickAway" v-if="searchVisible">
+                <div class="list-group">
+                    <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item}}</button>
+                </div>
+            </div>
         </div>
         <div class="col-6">
             <div class="input-group input-group-sm">
@@ -41,24 +47,24 @@
     </div>
     <div class="row g-3" v-for="(item, index) in getMeal" :key="index">
         <div class="col">
-            <input type="text" class="form-control form-control-sm mb-2" placeholder="" v-model="item.product" @change="update(index)">
+            <input type="text" class="form-control form-control-sm mb-2" placeholder="" v-model="item.product" @change="update(item)">
         </div>
         <div class="col-6">
             <div class="input-group input-group-sm">
                 <div class="input-group-text">Гр.</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(index)" @input="calc(index)">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(item)" @input="calc(index)">
                 <div class="input-group-text">Б</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.pr" @change="update(index)">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.pr" @change="update(item)">
                 <div class="input-group-text">Ж</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.ft" @change="update(index)">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.ft" @change="update(item)">
                 <div class="input-group-text">У</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(index)">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(item)">
                 <div class="input-group-text">ККАЛ</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(index)">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(item)">
             </div>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(index)"> 👋🏾 </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)"> 👋🏾 </button>
         </div>
     </div>
 </div>
@@ -66,6 +72,7 @@
 
 <script>
 export default{
+    props: ['title'],
     data () {
         return {
             newProduct: {
@@ -75,13 +82,15 @@ export default{
                 ft: null,
                 cb: null,
                 KKAL: null,
-                type: 'breakfast'
-            }
+                type: this.title.title
+            },
+            search: ['Картошка', 'Рис бурый'],
+            searchVisible: false
         }
     },
     computed: {
         getMeal: function(){
-            return _.cloneDeep(this.$store.getters.meals.breakfast)
+            return _.cloneDeep(this.$store.getters.meals[this.title.title])
         },
         nutritions: function(){
             let result = {
@@ -118,41 +127,65 @@ export default{
                 this.newProduct.cb = null
                 this.newProduct.KKAL = null
             })
-            .catch(err => console.log(err.response.data))
+            .catch(err => {
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
         },
-        deleteProduct: function(index){
+        deleteProduct: function(item){
             axios.post('/api/products/delete', {
-                ...this.getMeal[index],
+                ...item,
                 date: this.date
             })
             .then(() => {
-                this.$store.commit('remove', this.getMeal[index])
+                this.$store.commit('remove',item)
             })
-            .catch(err => console.log(err.response.data))
+            .catch(err => {
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
         },
-        update: function(index){
+        update: function(item){
             axios.post('/api/products/update', {
-                ...this.getMeal[index],
+                ...item,
                 date: this.date
             })
             .then(() => {
-                this.$store.commit('update', this.getMeal[index])
+                this.$store.commit('update', item)
             })
-            .catch(err => console.log(err.response.data))
+            .catch(err => {
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
         },
         calc: function(index){
-            let weight = this.$store.getters.meals.breakfast[index].weight
+            let weight = this.$store.getters.meals[this.title.title][index].weight
             let newWeight = this.getMeal[index].weight
             
-            let pr = this.$store.getters.meals.breakfast[index].pr
-            let ft = this.$store.getters.meals.breakfast[index].ft
-            let cb = this.$store.getters.meals.breakfast[index].cb
-            let KKAL = this.$store.getters.meals.breakfast[index].KKAL
+            let pr = this.$store.getters.meals[this.title.title][index].pr
+            let ft = this.$store.getters.meals[this.title.title][index].ft
+            let cb = this.$store.getters.meals[this.title.title][index].cb
+            let KKAL = this.$store.getters.meals[this.title.title][index].KKAL
 
             this.getMeal[index].pr = (pr / weight * newWeight).toFixed(1)
             this.getMeal[index].ft = (ft / weight * newWeight).toFixed(1)
             this.getMeal[index].cb = (cb / weight * newWeight).toFixed(1)
             this.getMeal[index].KKAL = (KKAL / weight * newWeight).toFixed(1)
+        },
+        onClickAway() {
+            this.searchVisible = false
+        },
+        select(item){
+            console.log(item)
+            this.newProduct.product = item
+            this.search = null
+            this.searchVisible = false
         }
     }
 }

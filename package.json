@@ -12,8 +12,10 @@
         "vite": "^2.9.11"
     },
     "dependencies": {
+        "@kyvg/vue3-notification": "^2.3.4",
         "@vitejs/plugin-vue": "^2.3.3",
         "vue-router": "^4.0.13",
+        "vue3-click-away": "^1.2.4",
         "vuex": "^4.0.2"
     }
 }

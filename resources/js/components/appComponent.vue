@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="row">
                         <div class="col gy-3 clr">
-                            <Breakfast/>
+                            <Meal :title="{name: 'Завтрак', title: 'breakfast'}"/>
                         </div>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
 import Weight from './app/weightComponent.vue'
 import PFC from './app/pfcComponent.vue'
 
-import Breakfast from './app/foods/breakfastComponent.vue'
+import Meal from './app/foods/mealComponent.vue'
 
 export default{
     components: {
         Weight,
         PFC,
-        Breakfast
+        Meal
     },
     data: () => {
         return{
