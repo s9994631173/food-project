@@ -28,8 +28,6 @@ class PFCs extends Model
 
             $item->save();
         }else{
-            $user_id = self::getUserByToken($data['token']);
-
             $item = [
                 'date' => $data['date'],
                 'user_id' => $data['user_id'],

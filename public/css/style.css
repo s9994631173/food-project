@@ -17,5 +17,10 @@ INPUT {
 .search {
     position: absolute !important;
     max-height: 200px;
+    max-width: 350px;
     overflow: auto;
+}
+.spinner-border{
+    width: 35px !important;
+    height: 35px !important;
 }

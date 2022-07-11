@@ -20,17 +20,17 @@
     </div>
     <div class="row g-3">
         <div class="col">
-            <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true">
+            <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
             <div class="search" v-click-away="onClickAway" v-if="searchVisible">
                 <div class="list-group">
-                    <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item}}</button>
+                    <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="input-group input-group-sm">
                 <div class="input-group-text">Гр.</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight">
+                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight" @focus="saveNewProdProps" @input='calcAppend'>
                 <div class="input-group-text">Б</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.pr">
                 <div class="input-group-text">Ж</div>
@@ -42,7 +42,10 @@
             </div>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct"> 💪🏽 </button>
+            <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
+                <span class="sr-only"></span>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 💪🏽 </button>
         </div>
     </div>
     <div class="row g-3" v-for="(item, index) in getMeal" :key="index">
@@ -64,7 +67,10 @@
             </div>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)"> 👋🏾 </button>
+            <div class="spinner-border text-warning" role="status" v-if="item.loading">
+                <span class="sr-only"></span>
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 👋🏾 </button>
         </div>
     </div>
 </div>
@@ -76,15 +82,18 @@ export default{
     data () {
         return {
             newProduct: {
-                product: null,
+                product: [],
                 weight: 100,
                 pr: null,
                 ft: null,
                 cb: null,
                 KKAL: null,
-                type: this.title.title
+                type: this.title.title,
+                loading: false
             },
-            search: ['Картошка', 'Рис бурый'],
+            newProductProps: null,
+            productProps: null,
+            search: [],
             searchVisible: false
         }
     },
@@ -106,6 +115,10 @@ export default{
                 result.cb += Number(this.getMeal[i].cb)
                 result.KKAL += Number(this.getMeal[i].KKAL)
             }
+            result.pr = result.pr.toFixed(1)
+            result.ft = result.ft.toFixed(1)
+            result.cb = result.cb.toFixed(1)
+            result.KKAL = result.KKAL.toFixed(1)
             return result
         },
         date: function(){
@@ -121,11 +134,15 @@ export default{
             .then((response) => {
                 this.$store.commit('new', response.data)
                 this.newProduct.product = null
-                this.newProduct.weight = null
+                this.newProduct.weight = 100
+                this.newProduct.calcWeight = 100
                 this.newProduct.pr = null
                 this.newProduct.ft = null
                 this.newProduct.cb = null
                 this.newProduct.KKAL = null
+
+                this.search = null
+                this.searchVisible = false
             })
             .catch(err => {
                 this.$notify({
@@ -135,14 +152,20 @@ export default{
             })
         },
         deleteProduct: function(item){
+            item.loading = true
+
             axios.post('/api/products/delete', {
                 ...item,
                 date: this.date
             })
             .then(() => {
+                item.loading = false
+
                 this.$store.commit('remove',item)
             })
             .catch(err => {
+                item.loading = false
+
                 this.$notify({
                 text: err.response.data.message,
                 type: 'error'
@@ -150,14 +173,19 @@ export default{
             })
         },
         update: function(item){
+            item.loading = true
             axios.post('/api/products/update', {
                 ...item,
                 date: this.date
             })
             .then(() => {
+                item.loading = false
+
                 this.$store.commit('update', item)
             })
             .catch(err => {
+                item.loading = false
+
                 this.$notify({
                 text: err.response.data.message,
                 type: 'error'
@@ -182,10 +210,74 @@ export default{
             this.searchVisible = false
         },
         select(item){
-            console.log(item)
-            this.newProduct.product = item
+            this.newProduct.loading = true
+
+            axios.post('/api/products/search', {
+                prod_id: item.prod_id
+            })
+            .then(response => {
+                this.newProduct.loading = false
+
+                this.newProduct.product = response.data.product
+                this.newProduct.pr = response.data.pr
+                this.newProduct.ft = response.data.ft
+                this.newProduct.cb = response.data.cb
+                this.newProduct.KKAL = response.data.KKAL
+
+                this.search = null
+                this.searchVisible = false
+            })
+            .catch(err => {
+                this.newProduct.loading = false
+
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
+            
+        },
+        presearch(){
             this.search = null
-            this.searchVisible = false
+
+            if(this.newProduct.product.length > 2){
+                axios.post('/api/products/presearch', this.newProduct)
+                .then(response => {
+                    let presearch = response.data.replace(/\\/g, '1')
+
+                    let rpl = JSON.parse(presearch)
+
+                    if (rpl.prod_title){
+                        let result = []
+                        for (var i=0; i<rpl.prod_title.length; i++){
+                            result.push({prod_title: rpl.prod_title[i], prod_id: rpl.prod_id[i]})
+                        }
+                        this.search = result
+                    }else{
+                        this.$notify({
+                        text: 'Продукт не найден',
+                        type: 'warn'
+                        });
+                    }
+                })
+            }
+        },
+        saveNewProdProps(){
+            this.newProductProps = _.cloneDeep(this.newProduct)
+        },
+        calcAppend(){
+            let weight = this.newProductProps.weight
+            let newWeight = this.newProduct.weight
+            
+            let pr = this.newProductProps.pr
+            let ft = this.newProductProps.ft
+            let cb = this.newProductProps.cb
+            let KKAL = this.newProductProps.KKAL
+
+            this.newProduct.pr = (pr / weight * newWeight).toFixed(1)
+            this.newProduct.ft = (ft / weight * newWeight).toFixed(1)
+            this.newProduct.cb = (cb / weight * newWeight).toFixed(1)
+            this.newProduct.KKAL = (KKAL / weight * newWeight).toFixed(1)
         }
     }
 }

@@ -1,13 +1,11 @@
 <template>
-    <div style="margin: 10px">
-        <div class="input-group input-group-sm mb-2">
-        <div class="form-floating" v-if="errors">
-            <div class="text-danger"> {{ errors }} </div>
-        </div>
+    <div class="clr">
+        <notifications position="bottom right"/>
 
-        <span class="input-group-text" id="inputGroup-sizing-sm">Вес</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="weight">
-    </div>
+        <div class="input-group input-group-sm">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Вес</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="weight" @change="updateValue">
+        </div>
     </div>
 </template>
 
@@ -22,14 +20,20 @@ export default{
     computed: {
         refresh: function(){
             this.weight = this.$store.state.today.weight
-        },
+        }
+    },
+    methods: {
         updateValue: function(){
             axios.post('/api/weight/update', {
                 date: this.$store.getters.date,
                 weight: this.weight
             })
-            .then(() => this.errors = null)
-            .catch(err => this.errors = err.response.data.message)
+            .catch(err => {
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
         }
     }
 }

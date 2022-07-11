@@ -7,6 +7,7 @@ use App\Http\Controllers\GetController;
 use App\Http\Controllers\WeightController;
 use App\Http\Controllers\PFCController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,6 @@ Route::middleware('auth:sanctum')->post('/pfc/update', PFCController::class);
 Route::middleware('auth:sanctum')->post('products/update', [ProductController::class, 'update']);
 Route::middleware('auth:sanctum')->post('products/delete', [ProductController::class, 'delete']);
 Route::middleware('auth:sanctum')->post('products/new', [ProductController::class, 'new']);
+
+Route::middleware('auth:sanctum')->post('products/presearch', [SearchController::class, 'presearch']);
+Route::middleware('auth:sanctum')->post('products/search', [SearchController::class, 'search']);

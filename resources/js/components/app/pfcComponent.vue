@@ -1,14 +1,17 @@
 <template>
-    <div style="margin: 10px;">
-        <div class="input-group input-group-sm mb-2">
+    <div class="clr">
+        <notifications position="bottom right"/>
+        <span class="badge rounded-pill bg-warning text-dark mb-2">План на день</span>
+        
+        <div class="input-group input-group-sm">
         <span class="input-group-text" id="inputGroup-sizing-sm">Б</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="pr">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="pr" @change="updateValue">
         <span class="input-group-text" id="inputGroup-sizing-sm">Ж</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="ft">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="ft" @change="updateValue">
         <span class="input-group-text" id="inputGroup-sizing-sm">У</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="cb">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="cb" @change="updateValue">
         <span class="input-group-text" id="inputGroup-sizing-sm">Ккал</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="Kcal">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="Kcal" @change="updateValue">
         </div>
     </div>
 </template>
@@ -17,10 +20,10 @@
 export default{
     data: () => {
         return{
-            pr: null,
-            ft: null,
-            cb: null,
-            Kcal: null
+            pr: 0,
+            ft: 0,
+            cb: 0,
+            Kcal: 0
         }
     },
     computed: {
@@ -29,7 +32,9 @@ export default{
             this.ft = this.$store.state.today.ft
             this.cb = this.$store.state.today.cb
             this.Kcal = this.$store.state.today.kcal
-        },
+        }
+    },
+    methods: {
         updateValue: function(){
             axios.post('/api/pfc/update', {
                 date: this.$store.getters.date,
@@ -38,8 +43,12 @@ export default{
                 carbohydrates: this.cb,
                 KKAL: this.Kcal,
             })
-            .then(() => this.errors = null)
-            .catch(err => this.errors = err.response.data.message)
+            .catch(err => {
+                this.$notify({
+                text: err.response.data.message,
+                type: 'error'
+                });
+            })
         }
     }
 }
