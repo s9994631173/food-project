@@ -8,6 +8,11 @@
                 <div class="row">
                     <div class="col-10 gy-3 clr">График</div>
                 </div>
+                <div class="row text-center">
+                    <div class="col-10 gy-3 clr">
+                        <Calendar v-model="date"/>
+                    </div>
+                </div>
             </div>
             <div class="col gy-4">
                 <div class="row justify-content-start">
@@ -69,11 +74,23 @@ export default{
     },
     data: () => {
         return{
-            r: []
+            date: new Date(),
+        }
+    },
+    computed:{
+
+    },
+    methods: {
+
+    },
+    watch: {
+        date (){
+            this.$store.commit('setDate', this.date)
+            this.$store.dispatch('getData')
         }
     },
     mounted (){
-        this.$store.dispatch('getData')
+
     }
 }
 </script>

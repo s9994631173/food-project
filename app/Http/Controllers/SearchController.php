@@ -9,17 +9,17 @@ use App\Http\Services\SearchService;
 
 class SearchController extends Controller
 {
-    public function presearch(SearchRequest $request){
+    public function presearch(SearchRequest $request, SearchService $service){
         $validated = $request->validated();
-        return SearchService::presearch($validated);
+        return $service->presearch($validated);
     }
 
-    public function search(SearchRequest $request){
+    public function search(SearchRequest $request, SearchService $service){
         $validated = $request->validated();
 
-        $result = SearchService::search($validated);
+        $result = $service->search($validated);
         if ($result){
-            return response(SearchService::successSearch($result), 200);
+            return response($service->successSearch($result), 200);
         }
         return response(['message' => 'Ошибка при обращении к серверу'], 422);
     }

@@ -4,7 +4,7 @@ use App\Models\Weights;
 use App\Models\PFCs;
 
 class WeekService{
-    public static function getByWeek($date, $user_id){
+    public function getByWeek($date, $user_id){
         $week = [];
         for ($i = 1; $i <= 7; $i++){
             $searchDate = date("Y-m-d", strtotime("-{$i} days", strtotime($date)));

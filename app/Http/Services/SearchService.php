@@ -6,14 +6,14 @@ use Illuminate\Http\Client\RequestException;
 include 'simple_html_dom.php';
 
 class SearchService{
-    public static function presearch($item){
+    public function presearch($item){
         $response = Http::asForm()->post('https://calorizator.ru/search/load', [
             'search' => $item['product'],
         ]);
         return $response;
     }
 
-    public static function search($item){
+    public function search($item){
         $prod_id = $item['prod_id'];
         try{
             $response = Http::retry(3, 100)->get("https://calorizator.ru/search/result/p/{$prod_id}");
@@ -31,7 +31,7 @@ class SearchService{
         return false;
     }
 
-    public static function successSearch($html){
+    public function successSearch($html){
         $name = $html->find('h1[id=page-title]', 0)->innertext();
 
         $KKAL = $html->find('div[class=field field-type-number-decimal field-field-kcal]', 0)->innertext();

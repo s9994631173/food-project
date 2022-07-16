@@ -28,10 +28,13 @@ export default{
     },
     computed: {
         refresh: function(){
-            this.pr = this.$store.state.today.pr
-            this.ft = this.$store.state.today.ft
-            this.cb = this.$store.state.today.cb
-            this.Kcal = this.$store.state.today.kcal
+            let obj = {
+                pr: this.$store.state.today.pr,
+                ft: this.$store.state.today.ft,
+                cb: this.$store.state.today.cb,
+                Kcal: this.$store.state.today.kcal
+            }
+            return obj
         }
     },
     methods: {
@@ -49,6 +52,14 @@ export default{
                 type: 'error'
                 });
             })
+        }
+    },
+    watch: {
+        refresh (){
+            this.pr = this.refresh.pr
+            this.ft = this.refresh.ft
+            this.cb = this.refresh.cb
+            this.Kcal = this.refresh.Kcal
         }
     }
 }

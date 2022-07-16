@@ -20,7 +20,7 @@ export default{
     },
     computed: {
         refresh: function(){
-            this.weight = this.$store.state.today.weight
+            return this.$store.state.today.weight
         }
     },
     methods: {
@@ -35,6 +35,11 @@ export default{
                 type: 'error'
                 });
             })
+        }
+    },
+    watch: {
+        refresh (){
+            this.weight = this.refresh
         }
     }
 }

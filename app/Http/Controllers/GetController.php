@@ -11,7 +11,7 @@ use App\Http\Services\Week\WeekService;
 
 class GetController extends Controller
 {
-    public function getByDate(Request $request){
+    public function getByDate(Request $request, WeekService $service){
         $date = date("Y-m-d", strtotime($request->input('date')));
         $user_id = $request->user()->id;
 
@@ -19,7 +19,7 @@ class GetController extends Controller
         $pfcToday = PFCs::getByDate($date, $user_id);
         $productsToday = Products::getByDate($date, $user_id);
 
-        $week = WeekService::getByWeek($date, $user_id);
+        $week = $service->getByWeek($date, $user_id);
 
         return response([
             'today' => [
