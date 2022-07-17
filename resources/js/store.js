@@ -35,7 +35,11 @@ const store = createStore({
           state.today.products = array
         },
         addWeek (state, data){
-          state.week = data
+          let obj = new Object
+          for (var i=0; i<data.length; i++){
+            obj[i] = data[i]
+          }
+          state.week = obj
         },
         update (state, obj){
           let produtsToday = state.today.products
@@ -119,12 +123,12 @@ const store = createStore({
             date: dateToday
         })
         .then(response => {
-          let weight = response.data.today.weight ? response.data.today.weight : null
+          let weight = response.data.today.weight ? response.data.today.weight : 0
           let PFC = response.data.today.PFC ? response.data.today.PFC : {
-            pr: null,
-            ft: null,
-            cb: null,
-            kcal: null
+            proteins: 0,
+            fats: 0,
+            carbohydrates: 0,
+            KKAL: 0
           }
           let products = response.data.today.products ? response.data.today.products : null
           let week = response.data.week ? response.data.week : null

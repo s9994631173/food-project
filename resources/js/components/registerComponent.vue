@@ -2,8 +2,6 @@
     <div class='container-fluid'>
     <main class='form-signin w-100 m-auto'>
     <form class="text-center" @submit.prevent="formSubmit">
-        <h1 class="h3 mb-3 fw-normal clt-text">Регистрация</h1>
-
         <div class="form-floating" v-if="errors">
             <div class="text-danger" v-for="(item, index) in errors" :key="index">
                 {{ item.join() }}
@@ -25,7 +23,7 @@
         <div class="form-floating">
         </div>
         <button class="w-100 btn btn-lg btn-primary clr-button" type="submit">Регистрация</button>
-        <router-link to="/login">Войти</router-link>
+        <router-link to="/login" class="link-light">Войти</router-link>
     </form>
     </main>
     </div>
@@ -89,7 +87,6 @@ html,
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #252526;
     }
 
     .form-signin {

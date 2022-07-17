@@ -1,17 +1,18 @@
+BODY{
+    background: #151515;
+    color: #d8d8d8;
+}
 #app {
     width: 100%;
 }
 .clr-button{
-    background: #FF416C;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FF4B2B, #FF416C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #6dde11;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6dde11, #b3f322);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dde11, #b3f322); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: 0;
 }
 .clt-text{
-    color: #FF416C !important;
-}
-INPUT {
-    background: #3d4145 !important;
+    color: #6dde11 !important;
 }
 
 .search {
@@ -23,4 +24,34 @@ INPUT {
 .spinner-border{
     width: 35px !important;
     height: 35px !important;
+}
+.pr {
+    background: #ed484f !important;
+    color: black;
+}
+.ft {
+    background: #a9f230 !important;
+    color: black;
+}
+.cb {
+    background: #6aeede !important;
+    color: black;
+}
+INPUT {
+    background: #151515 !important;
+    border-color: #6c757d !important;
+    color: #6c757d !important;
+    border: 0px !important;
+}
+.input-group-text {
+    background: #6c757d !important;
+    border: 0px !important;
+}
+
+.vc-container.vc-is-dark{
+    border: none !important;
+}
+
+.list-group-item {
+    background: #6c757d !important;
 }

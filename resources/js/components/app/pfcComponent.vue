@@ -1,7 +1,7 @@
 <template>
     <div class="clr">
         <notifications position="bottom right"/>
-        <span class="badge rounded-pill bg-warning text-dark mb-2">План на день</span>
+        <span class="badge rounded-pill bg-secondary mb-2">План на день</span>
         
         <div class="input-group input-group-sm">
         <span class="input-group-text" id="inputGroup-sizing-sm">Б</span>
@@ -45,6 +45,14 @@ export default{
                 fats: this.ft,
                 carbohydrates: this.cb,
                 KKAL: this.Kcal,
+            })
+            .then(() => {
+                this.$store.commit('addNutritions', {
+                    proteins: this.pr,
+                    fats: this.ft,
+                    carbohydrates: this.cb,
+                    KKAL: this.Kcal,
+                })
             })
             .catch(err => {
                 this.$notify({

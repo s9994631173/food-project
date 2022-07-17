@@ -2,7 +2,7 @@
     <div class="clr">
         <notifications position="bottom right"/>
         <div>
-            <span class="badge rounded-pill bg-warning text-dark mb-2">Вес</span>
+            <span class="badge rounded-pill bg-secondary mb-2">Вес</span>
         </div>
         <div class="input-group input-group-sm">
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="weight" @change="updateValue">
@@ -28,6 +28,9 @@ export default{
             axios.post('/api/weight/update', {
                 date: this.$store.getters.date,
                 weight: this.weight
+            })
+            .then(() => {
+                this.$store.commit('addWeight', this.weight)
             })
             .catch(err => {
                 this.$notify({
