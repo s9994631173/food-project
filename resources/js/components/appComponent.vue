@@ -111,6 +111,9 @@ export default{
 </script>
 
 <style>
+INPUT::placeholder {
+    color: #484848 !important;
+}
     .clr{
         background: #1a202c !important;
         border-radius: 20px;
