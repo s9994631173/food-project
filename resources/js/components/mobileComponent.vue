@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-12 gy-4">
             <div class="row justify-content-center">
-                <div class="col-4 text-center">
+                <div class="col text-center">
                     <Weight/>
                 </div>
             </div>
