@@ -10,7 +10,7 @@ function drawLine(array){
     ctx.lineWidth = 5;
     
     ctx.beginPath() 
-    ctx.moveTo(300,130)
+    ctx.moveTo(300,120)
     let x = 260
     for(var i=0; i<array.length; i++){
         ctx.lineTo(x, array[i][2]+10)
