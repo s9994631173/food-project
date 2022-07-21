@@ -20,6 +20,11 @@ const routes = [
         path: '/app', 
         component: () => import('./components/appComponent.vue'), 
         name: 'app'
+    },
+    {
+        path: '/m', 
+        component: () => import('./components/mobileComponent.vue'), 
+        name: 'mobile'
     }
 ]
 

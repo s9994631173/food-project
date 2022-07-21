@@ -1,14 +1,14 @@
 <template>
 <div class="row justify-content-center">
     <div class="row justify-content-center">
-        <div class="col gy-4">
+        <div class="col-12 gy-4">
             <div class="row justify-content-center">
                 <div class="col-4 text-center">
                     <Weight/>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col gy-3 text-center">
+                <div class="col-12 gy-3 text-center">
                     <Dials/>
                 </div>
             </div>
