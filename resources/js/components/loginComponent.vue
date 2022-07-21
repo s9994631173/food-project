@@ -45,25 +45,25 @@ export default{
             }
 
             axios.get('/sanctum/csrf-cookie')
-            let csrf = getCookie('XSRF-TOKEN')
+            .then(() => {
+                let csrf = getCookie('XSRF-TOKEN')
 
-            axios.post('/login', {
-                email: this.email,
-                password: this.password
-            })
-            .then(response => {
-                if (response.data.userName){
-                    this.$store.commit('addName', response.data.userName)
-                    this.$router.push('app')
-                }
-            })
-            .catch(error => {
-                if(error.response.data.errors){
-                    this.errors = error.response.data.errors
-                }
-            })
-
-            
+                axios.post('/login', {
+                    email: this.email,
+                    password: this.password
+                })
+                .then(response => {
+                    if (response.data.userName){
+                        this.$store.commit('addName', response.data.userName)
+                        this.$router.push('app')
+                    }
+                })
+                .catch(error => {
+                    if(error.response.data.errors){
+                        this.errors = error.response.data.errors
+                    }
+                })
+            }) 
         }
     },
     mounted() {
