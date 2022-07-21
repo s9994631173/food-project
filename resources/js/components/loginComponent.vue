@@ -44,10 +44,10 @@ export default{
                 return matches ? decodeURIComponent(matches[1]) : undefined;
             }
 
-            axios.get('http://localhost:8000/sanctum/csrf-cookie')
+            axios.get('/sanctum/csrf-cookie')
             let csrf = getCookie('XSRF-TOKEN')
 
-            axios.post('http://localhost:8000/login', {
+            axios.post('/login', {
                 email: this.email,
                 password: this.password
             })
@@ -80,16 +80,9 @@ export default{
 </script>
 
 <style>
-    html,
-    body {
-    height: 100%;
-    }
-
     body {
     display: flex;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
     }
 
     .form-signin {

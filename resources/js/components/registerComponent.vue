@@ -44,7 +44,7 @@ export default{
     },
     methods: {
         formSubmit: function(){
-            axios.post('http://localhost:8000/api/register', {
+            axios.post('/api/register', {
                 email: this.email,
                 name: this.name,
                 password: this.password
@@ -77,16 +77,10 @@ export default{
 </script>
 
 <style>
-html,
-    body {
-    height: 100%;
-    }
 
     body {
     display: flex;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
     }
 
     .form-signin {
