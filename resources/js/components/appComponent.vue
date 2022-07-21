@@ -95,8 +95,8 @@ export default{
     computed:{
         boxSize (){
             return {
-                width: document.documentElement.scrollWidth,
-                height: document.documentElement.scrollHeight
+                width: window.screen.width,
+                height: window.screen.height
             }
         }
     },
