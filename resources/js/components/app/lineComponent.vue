@@ -6,7 +6,7 @@
     </div>
     <div class="row justify-content-center text-center">
         <div class="col p-0">
-            <canvas id="cnvsLine" width="300" height="120"></canvas>
+            <canvas id="cnvsLine" width="300" height="130"></canvas>
         </div>
     </div>
 </template>
