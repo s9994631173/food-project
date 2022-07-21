@@ -1,9 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="row justify-content-center" v-if="boxSize.width < 600">
-            <Mobile/>
-        </div>
-        <div class="row " v-else>
+        <div class="row">
             <div class="col-3 gy-4">
                 <div class="row justify-content-center">
                     <div class="col-10 text-center">
