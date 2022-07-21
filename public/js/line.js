@@ -10,10 +10,10 @@ function drawLine(array){
     ctx.lineWidth = 5;
     
     ctx.beginPath() 
-    ctx.moveTo(300,110)
+    ctx.moveTo(300,130)
     let x = 260
     for(var i=0; i<array.length; i++){
-        ctx.lineTo(x, array[i][2])
+        ctx.lineTo(x, array[i][2]+10)
         x -= 37
     }
     ctx.strokeStyle = gradient
