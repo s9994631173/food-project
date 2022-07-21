@@ -20,8 +20,7 @@ const routes = [
         path: '/app', 
         component: () => import('./components/appComponent.vue'), 
         name: 'app'
-    },
-
+    }
 ]
 
 const router = createRouter({

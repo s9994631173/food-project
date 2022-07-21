@@ -1,6 +1,9 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center" v-if="boxSize.width < 600">
+            <Mobile/>
+        </div>
+        <div class="row " v-else>
             <div class="col-3 gy-4">
                 <div class="row justify-content-center">
                     <div class="col-10 text-center">
@@ -73,13 +76,16 @@ import Meal from './app/foods/mealComponent.vue'
 import Dials from './app/dialsComponent.vue'
 import Line from './app/lineComponent.vue'
 
+import Mobile from './mobileComponent.vue'
+
 export default{
     components: {
         Weight,
         PFC,
         Meal,
         Dials,
-        Line
+        Line,
+        Mobile
     },
     data: () => {
         return{
@@ -87,7 +93,12 @@ export default{
         }
     },
     computed:{
-
+        boxSize (){
+            return {
+                width: document.documentElement.scrollWidth,
+                height: document.documentElement.scrollHeight
+            }
+        }
     },
     methods: {
 
