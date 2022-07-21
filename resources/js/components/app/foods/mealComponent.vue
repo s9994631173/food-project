@@ -3,16 +3,16 @@
     <notifications position="bottom right"/>
     <div class="d-flex">
         <div class="flex-grow-1 p-1">
-            <span class="badge rounded-pill bg-warning text-dark mb-2">{{title.name}}</span>
+            <span class="badge rounded-pill bg-secondary mb-2">{{title.name}}</span>
         </div>
         <div class="p-1">
-            <span class="badge bg-danger">Б <span> {{ nutritions.pr }} </span></span>
+            <span class="badge pr">Б <span> {{ nutritions.pr }} </span></span>
         </div>
         <div class="p-1">
-            <span class="badge bg-success">Ж <span> {{ nutritions.ft }} </span></span>
+            <span class="badge ft">Ж <span> {{ nutritions.ft }} </span></span>
         </div>
         <div class="p-1">
-            <span class="badge bg-primary">У <span> {{ nutritions.cb }} </span></span>
+            <span class="badge cb">У <span> {{ nutritions.cb }} </span></span>
         </div>
         <div class="p-1">
             <span class="badge bg-light text-dark">Ккал <span> {{ nutritions.KKAL }} </span></span>

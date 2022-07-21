@@ -5,7 +5,7 @@ const store = createStore({
     state () {
       return {
         userName: null,
-        date: new Date(),
+        date: null,
 
         today: {
           weight: null,
@@ -35,7 +35,11 @@ const store = createStore({
           state.today.products = array
         },
         addWeek (state, data){
-          state.week = data
+          let obj = new Object
+          for (var i=0; i<data.length; i++){
+            obj[i] = data[i]
+          }
+          state.week = obj
         },
         update (state, obj){
           let produtsToday = state.today.products
@@ -51,6 +55,9 @@ const store = createStore({
         },
         new (state, obj){
           state.today.products.push(obj)
+        },
+        setDate (state, payload){
+          state.date = payload
         }
     },
     getters: {
@@ -88,6 +95,25 @@ const store = createStore({
           }
 
           return result
+        },
+        nutritions (state){
+          let result = {
+            pr: 0,
+            ft: 0,
+            cb: 0,
+            KKAL: 0
+          }
+          for (var i=0;i<state.today.products.length; i++){
+            result.pr += Number(state.today.products[i].pr)
+            result.ft += Number(state.today.products[i].ft)
+            result.cb += Number(state.today.products[i].cb)
+            result.KKAL += Number(state.today.products[i].KKAL)
+          }
+          result.pr = result.pr.toFixed(1)
+          result.ft = result.ft.toFixed(1)
+          result.cb = result.cb.toFixed(1)
+          result.KKAL = result.KKAL.toFixed(1)
+          return result
         }
     },
     actions: {
@@ -97,10 +123,19 @@ const store = createStore({
             date: dateToday
         })
         .then(response => {
-            if (response.data.today.weight) context.commit('addWeight', response.data.today.weight)
-            if (response.data.today.PFC) context.commit('addNutritions', response.data.today.PFC)
-            if (response.data.today.products) context.commit('addProducts', response.data.today.products)
-            context.commit('addWeek', response.data.week)
+          let weight = response.data.today.weight ? response.data.today.weight : 0
+          let PFC = response.data.today.PFC ? response.data.today.PFC : {
+            proteins: 0,
+            fats: 0,
+            carbohydrates: 0,
+            KKAL: 0
+          }
+          let products = response.data.today.products ? response.data.today.products : null
+          let week = response.data.week ? response.data.week : null
+          context.commit('addWeight', weight)
+          context.commit('addNutritions', PFC)
+          context.commit('addProducts', products)
+          context.commit('addWeek', week)
         })
       }
     }

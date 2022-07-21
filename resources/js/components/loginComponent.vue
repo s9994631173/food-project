@@ -2,8 +2,6 @@
     <div class='container-fluid auth'>
         <main class='form-signin w-100 m-auto'>
     <form class="text-center" @submit.prevent="formSubmit">
-        <h1 class="h3 mb-3 fw-normal clt-text">Авторизация</h1>
-
         <div class="form-floating" v-if="errors">
             <div class="text-danger" v-for="(item, index) in errors" :key="index">
                 {{ item.join() }}
@@ -19,7 +17,7 @@
         <label for="floatingPassword">Пароль</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary clr-button" type="submit">Войти</button>
-        <router-link to="/register">Зарегистрироваться</router-link>
+        <router-link to="/register" class="link-light">Зарегистрироваться</router-link>
     </form>
     </main>
     </div>
@@ -92,12 +90,13 @@ export default{
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #252526;
     }
 
     .form-signin {
     max-width: 330px;
     padding: 15px;
+    background: #1a202c;
+    border-radius: 20px;
     }
 
     .form-signin .form-floating:focus-within {

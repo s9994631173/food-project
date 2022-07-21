@@ -1,16 +1,25 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-4 gy-4">
-                <div class="row">
-                    <div class="col-10 clr">Круги</div>
+            <div class="col-3 gy-4">
+                <div class="row justify-content-center">
+                    <div class="col-10 text-center">
+                        <Dials/>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-10 gy-3 clr">График</div>
+                <div class="row justify-content-center">
+                    <div class="col-10 text-center">
+                        <Line/>
+                    </div>
+                </div>
+                <div class="row text-center justify-content-center">
+                    <div class="col-10 gy-3">
+                        <Calendar v-model="date" is-dark/>
+                    </div>
                 </div>
             </div>
-            <div class="col gy-4">
-                <div class="row justify-content-start">
+            <div class="col-9 gy-4">
+                <div class="row justify-content-center">
                     <div class="col-2">
                         <Weight/>
                     </div>
@@ -61,30 +70,52 @@ import PFC from './app/pfcComponent.vue'
 
 import Meal from './app/foods/mealComponent.vue'
 
+import Dials from './app/dialsComponent.vue'
+import Line from './app/lineComponent.vue'
+
 export default{
     components: {
         Weight,
         PFC,
-        Meal
+        Meal,
+        Dials,
+        Line
     },
     data: () => {
         return{
-            r: []
+            date: new Date(),
+        }
+    },
+    computed:{
+
+    },
+    methods: {
+
+    },
+    watch: {
+        date (){
+            this.$store.commit('setDate', this.date)
+            this.$store.dispatch('getData')
         }
     },
     mounted (){
-        this.$store.dispatch('getData')
+        axios.post('/api/checkLogin')
+        .then(() => {
+            this.$store.commit('setDate', this.date)
+            this.$store.dispatch('getData')
+        })
+        .catch(() => this.$router.push('/login'))
+
     }
 }
 </script>
 
 <style>
-    BODY{
-        background: #202327;
-        color: #d8d8d8;
-    }
+INPUT::placeholder {
+    color: #484848 !important;
+}
     .clr{
-        background: #292c31 !important;
+        background: #1a202c !important;
         border-radius: 20px;
         padding: 10px 20px;
     }

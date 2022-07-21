@@ -1,7 +1,7 @@
 <template>
     <div class="clr">
         <notifications position="bottom right"/>
-        <span class="badge rounded-pill bg-warning text-dark mb-2">План на день</span>
+        <span class="badge rounded-pill bg-secondary mb-2">План на день</span>
         
         <div class="input-group input-group-sm">
         <span class="input-group-text" id="inputGroup-sizing-sm">Б</span>
@@ -28,10 +28,13 @@ export default{
     },
     computed: {
         refresh: function(){
-            this.pr = this.$store.state.today.pr
-            this.ft = this.$store.state.today.ft
-            this.cb = this.$store.state.today.cb
-            this.Kcal = this.$store.state.today.kcal
+            let obj = {
+                pr: this.$store.state.today.pr,
+                ft: this.$store.state.today.ft,
+                cb: this.$store.state.today.cb,
+                Kcal: this.$store.state.today.kcal
+            }
+            return obj
         }
     },
     methods: {
@@ -43,12 +46,28 @@ export default{
                 carbohydrates: this.cb,
                 KKAL: this.Kcal,
             })
+            .then(() => {
+                this.$store.commit('addNutritions', {
+                    proteins: this.pr,
+                    fats: this.ft,
+                    carbohydrates: this.cb,
+                    KKAL: this.Kcal,
+                })
+            })
             .catch(err => {
                 this.$notify({
                 text: err.response.data.message,
                 type: 'error'
                 });
             })
+        }
+    },
+    watch: {
+        refresh (){
+            this.pr = this.refresh.pr
+            this.ft = this.refresh.ft
+            this.cb = this.refresh.cb
+            this.Kcal = this.refresh.Kcal
         }
     }
 }

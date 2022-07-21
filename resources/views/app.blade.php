@@ -8,5 +8,7 @@
     <body>
         <div id="app"></div>
         @vite(['resources/js/app.js'])
+        <script src="./js/dials.js"></script>
+        <script src="./js/line.js"></script>
     </body>
 </html>

@@ -18,7 +18,9 @@ class Weights extends Model
     }
 
     public static function appendRow($data){
-        $item = self::where('date', $data['date'])->where('user_id', $data['user_id'])->first();
+        $item = self::where('date', $data['date'])
+            ->where('user_id', $data['user_id'])
+            ->first();
         if ($item){
             $item->weight = $data['weight'];
 
