@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3 gy-3">
+            <div class="col-3 gy-3" style="min-width: 300px;">
                 <div class="row justify-content-center">
                     <div class="col-auto text-center">
                         <Dials/>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col gy-2">
+            <div class="col gy-2" style="min-width: 500px;">
                 <div class="row text-center justify-content-end">
                     <SelectMeal/>
                 </div>

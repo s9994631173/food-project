@@ -1,5 +1,6 @@
 <template>
-<div class="row justify-content-center">
+<div class="container-sm">
+    <div class="row justify-content-center vh-100">
     <div class="row justify-content-center">
         <div class="col gy-4">
             <div class="row justify-content-center">
@@ -19,6 +20,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </template>
 
