@@ -5,11 +5,17 @@ BODY{
 #app {
     width: 100%;
 }
-.clr-button{
+.clr {
+    background: #1a202c !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+.clr-button {
     background: #6dde11;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #6dde11, #b3f322);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #6dde11, #b3f322); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #6dde11, #baf237);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dde11, #baf237); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: 0;
+    color: #0a0d12;
 }
 .clt-text{
     color: #6dde11 !important;
@@ -44,14 +50,17 @@ INPUT {
     border: 0px !important;
 }
 .input-group-text {
-    background: #6c757d !important;
+    background: transparent !important;
     border: 0px !important;
-}
-
-.vc-container.vc-is-dark{
-    border: none !important;
+    color: #d8d8d8;
 }
 
 .list-group-item {
     background: #6c757d !important;
+}
+
+.btnMeal {
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
 }

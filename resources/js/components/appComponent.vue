@@ -1,63 +1,37 @@
 <template>
-    <div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <Header/>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-3 gy-4">
+            <div class="col">
+                <Datepicker/>
+            </div>
+            <div class="col-2 align-self-end">
+                <Weight/>
+            </div>
+            <div class="col-4 align-self-end">
+                <PFC/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 gy-3">
                 <div class="row justify-content-center">
-                    <div class="col-10 text-center">
+                    <div class="col-auto text-center">
                         <Dials/>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-10 text-center">
+                    <div class="col-auto text-center">
                         <Line/>
                     </div>
                 </div>
-                <div class="row text-center justify-content-center">
-                    <div class="col-10 gy-3">
-                        <Calendar v-model="date" is-dark/>
-                    </div>
-                </div>
             </div>
-            <div class="col-9 gy-4">
-                <div class="row justify-content-center">
-                    <div class="col-2">
-                        <Weight/>
-                    </div>
-                    <div class="col-5">
-                        <PFC/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Завтрак', title: 'breakfast'}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Бранч', title: 'brunch'}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Обед', title: 'lunch'}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Перекус', title: 'lunch2'}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Ужин', title: 'dinner'}"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3 clr">
-                            <Meal :title="{name: 'Чтоб крепче спалось', title: 'dinner2'}"/>
-                        </div>
-                    </div>
+            <div class="col gy-2">
+                <div class="row text-center justify-content-end">
+                    <SelectMeal/>
                 </div>
             </div>
         </div>
@@ -65,10 +39,12 @@
 </template>
 
 <script>
+import Header from './app/headerComponent.vue'
+import Datepicker from './app/datepickerComponent.vue'
+import SelectMeal from './app/foods/selectmealComponent.vue'
+
 import Weight from './app/weightComponent.vue'
 import PFC from './app/pfcComponent.vue'
-
-import Meal from './app/foods/mealComponent.vue'
 
 import Dials from './app/dialsComponent.vue'
 import Line from './app/lineComponent.vue'
@@ -79,10 +55,12 @@ export default{
     components: {
         Weight,
         PFC,
-        Meal,
         Dials,
         Line,
-        Mobile
+        Mobile,
+        Header,
+        Datepicker,
+        SelectMeal
     },
     data: () => {
         return{
@@ -100,15 +78,12 @@ export default{
     methods: {
 
     },
-    watch: {
-        date (){
-            this.$store.commit('setDate', this.date)
-            this.$store.dispatch('getData')
-        }
-    },
     mounted (){
         axios.post('/api/checkLogin')
-        .then(() => {
+        .then(response => {
+            this.$store.commit('setDate', this.date)
+            this.$store.commit('addName', response.data.name)
+
             this.$store.commit('setDate', this.date)
             this.$store.dispatch('getData')
         })
@@ -123,9 +98,4 @@ export default{
 INPUT::placeholder {
     color: #484848 !important;
 }
-    .clr{
-        background: #1a202c !important;
-        border-radius: 20px;
-        padding: 10px 20px;
-    }
 </style>

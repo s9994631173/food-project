@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="row g-3">
-        <div class="col">
+        <div class="col-4">
             <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
             <div class="search" v-click-away="onClickAway" v-if="searchVisible">
                 <div class="list-group">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-7">
             <div class="input-group input-group-sm">
                 <div class="input-group-text">Гр.</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight" @focus="saveNewProdProps" @input='calcAppend'>
@@ -37,11 +37,11 @@
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.ft">
                 <div class="input-group-text">У</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.cb">
-                <div class="input-group-text">ККАЛ</div>
+                <div class="input-group-text">Ккал</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.KKAL">
             </div>
         </div>
-        <div class="col-auto">
+        <div class="col-1">
             <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
                 <span class="sr-only"></span>
             </div>
@@ -49,10 +49,10 @@
         </div>
     </div>
     <div class="row g-3" v-for="(item, index) in getMeal" :key="index">
-        <div class="col">
+        <div class="col-4">
             <input type="text" class="form-control form-control-sm mb-2" placeholder="" v-model="item.product" @change="update(item)">
         </div>
-        <div class="col-6">
+        <div class="col-7">
             <div class="input-group input-group-sm">
                 <div class="input-group-text">Гр.</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(item)" @input="calc(index)">
@@ -62,11 +62,11 @@
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.ft" @change="update(item)">
                 <div class="input-group-text">У</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(item)">
-                <div class="input-group-text">ККАЛ</div>
+                <div class="input-group-text">Ккал</div>
                 <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(item)">
             </div>
         </div>
-        <div class="col-auto">
+        <div class="col-1">
             <div class="spinner-border text-warning" role="status" v-if="item.loading">
                 <span class="sr-only"></span>
             </div>

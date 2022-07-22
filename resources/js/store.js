@@ -41,6 +41,9 @@ const store = createStore({
           }
           state.week = obj
         },
+        addName (state, name){
+          state.userName = name
+        },
         update (state, obj){
           let produtsToday = state.today.products
           for (var i = 0; i<produtsToday.length; i++){
@@ -132,6 +135,7 @@ const store = createStore({
           }
           let products = response.data.today.products ? response.data.today.products : null
           let week = response.data.week ? response.data.week : null
+
           context.commit('addWeight', weight)
           context.commit('addNutritions', PFC)
           context.commit('addProducts', products)
