@@ -84,10 +84,7 @@
                     </div>
                 </div>
                 <div class="col-2 col-xl-auto sm-p-0">
-                    <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
-                        <span class="sr-only"></span>
-                    </div>
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 🔴 </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)"> 🔴 </button>
                 </div>
             </div>
         </div>
