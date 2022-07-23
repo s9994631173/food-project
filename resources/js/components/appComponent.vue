@@ -10,7 +10,7 @@
         </header>
 
         <section>
-            <div class="container-sm px-4">
+            <div class="container px-4">
                 <div class="row gy-2">
                     <div class="col-xl-6 col-md-9 col-6">
                         <Datepicker/>
