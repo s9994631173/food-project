@@ -5,7 +5,7 @@
         <div class="col">
             <span class="badge rounded-pill bg-secondary mb-2">{{title.name}}</span>
         </div>
-        <div class="col-xl-auto text-center">
+        <div class="col-xl-auto text-end">
             <span class="badge pr me-2">Б <span> {{ nutritions.pr }} </span></span>
             <span class="badge ft me-2">Ж <span> {{ nutritions.ft }} </span></span>
             <span class="badge cb me-2">У <span> {{ nutritions.cb }} </span></span>
@@ -22,20 +22,20 @@
             </div>
         </div>
         <div class="col-xl-8 col-11 text-center">
-            <div class="row gy-2 justify-content-center">
+            <div class="row gy-2 justify-content-end">
                 <div class="col-xl-2 col-4 p-0 text-center">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Гр.</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight" @focus="saveNewProdProps" @input='calcAppend'>
                     </div>
                 </div>
-                <div class="col-xl-3 col-4 p-0 text-center">
+                <div class="col-xl-3 col-4 p-0 text-end">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Ккал</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.KKAL">
                     </div>
                 </div>
-                <div class="col-10 col-xl p-0 text-center">
+                <div class="col-10 col-xl p-0 text-end">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Б</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.pr">
@@ -45,11 +45,11 @@
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.cb">
                     </div>
                 </div>
-                <div class="col-2 col-xl-auto sm-p-0">
+                <div class="col-12 col-xl-2 p-0 text-end">
                     <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
                         <span class="sr-only"></span>
                     </div>
-                    <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 🟢 </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> Добавить </button>
                 </div>
             </div>
         </div>
@@ -60,20 +60,20 @@
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="item.product" @change="update(item)">
         </div>
         <div class="col-xl-8 col-11 text-center">
-            <div class="row gy-2 justify-content-center">
+            <div class="row gy-2 justify-content-end">
                 <div class="col-xl-2 col-4 p-0 text-center">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Гр.</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(item)" @input="calc(index)">
                     </div>
                 </div>
-                <div class="col-xl-3 col-4 p-0 text-center">
+                <div class="col-xl-3 col-4 p-0 text-end">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Ккал</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(item)">
                     </div>
                 </div>
-                <div class="col-10 col-xl p-0 text-center">
+                <div class="col-10 col-xl p-0 text-end">
                     <div class="input-group input-group-sm">
                         <div class="input-group-text">Б</div>
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.pr" @change="update(item)">
@@ -83,8 +83,8 @@
                         <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(item)">
                     </div>
                 </div>
-                <div class="col-2 col-xl-auto sm-p-0">
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)"> 🔴 </button>
+                <div class="col-12 col-xl-2 p-0 text-end">
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)"> Удалить </button>
                 </div>
             </div>
         </div>

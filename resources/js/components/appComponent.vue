@@ -112,8 +112,8 @@ export default{
 
             this.$store.commit('setDate', this.date)
             this.$store.dispatch('getData')
+            this.$router.push('/app')
         })
-        .then(() => this.$router.push('/app'))
         .catch(() => this.$router.push('/login'))
 
     }
