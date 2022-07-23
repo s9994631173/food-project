@@ -5,7 +5,7 @@
         <div class="col">
             <span class="badge rounded-pill bg-secondary mb-2">{{title.name}}</span>
         </div>
-        <div class="col-auto text-end">
+        <div class="col-xl-auto text-center">
             <span class="badge pr me-2">Б <span> {{ nutritions.pr }} </span></span>
             <span class="badge ft me-2">Ж <span> {{ nutritions.ft }} </span></span>
             <span class="badge cb me-2">У <span> {{ nutritions.cb }} </span></span>
@@ -49,7 +49,7 @@
                     <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
                         <span class="sr-only"></span>
                     </div>
-                    <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 💪🏽 </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 🟢 </button>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
                     <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
                         <span class="sr-only"></span>
                     </div>
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 👋🏾 </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 🔴 </button>
                 </div>
             </div>
         </div>
