@@ -121,6 +121,9 @@ export default{
 </script>
 
 <style>
+BODY {
+    align-items: baseline;
+}
 INPUT::placeholder {
     color: #484848 !important;
 }
