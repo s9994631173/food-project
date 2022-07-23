@@ -56,7 +56,6 @@
     </div>
 
     <div class="row justify-content-center gy-2 pt-xl-1 pt-3" v-for="(item, index) in getMeal" :key="index">
-    <hr>
         <div class="col-xl-4">
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="item.product" @change="update(item)">
         </div>
