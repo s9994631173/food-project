@@ -13,9 +13,9 @@
         </div>
     </div>
     <div class="row justify-content-center gy-2 pt-2">
-        <div class="col-xl-4">
+        <div class="col-xl-4" v-click-away="onClickAway" >
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
-            <div class="search" v-click-away="onClickAway" v-if="searchVisible">
+            <div class="search" v-if="searchVisible">
                 <div class="list-group">
                     <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
                 </div>
@@ -231,7 +231,9 @@ export default{
             this.getMeal[index].KKAL = (KKAL / weight * newWeight).toFixed(1)
         },
         onClickAway() {
-            this.searchVisible = false
+            if (this.searchVisible = true){
+                this.searchVisible = false
+            }
         },
         select(item){
             this.newProduct.loading = true
