@@ -12,7 +12,12 @@
             <span class="badge bg-light text-dark">Ккал <span> {{ nutritions.KKAL }} </span></span>
         </div>
     </div>
-    <div class="row justify-content-center gy-2 pt-2">
+    <div class="row" v-if="!newProduct.visible">
+        <div class="col" @click="newProduct.visible = true" >
+            <span class="text-white-50" style="cursor: pointer;"><small><em>Добавить продукт</em></small></span>
+        </div>
+    </div>
+    <div class="row justify-content-center gy-2 pt-2" v-else>
         <div class="col-xl-4">
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
             <div class="search" v-if="searchVisible" v-click-away="onClickAway" >
@@ -105,7 +110,8 @@ export default{
                 cb: null,
                 KKAL: null,
                 type: this.title.title,
-                loading: false
+                loading: false,
+                visible: false,
             },
             newProductProps: null,
             productProps: null,
@@ -159,6 +165,7 @@ export default{
 
                 this.search = null
                 this.searchVisible = false
+                this.newProduct.visible = false
             })
             .catch(err => {
                 this.$notify({
