@@ -15,7 +15,7 @@
     <div class="row justify-content-center gy-2 pt-2">
         <div class="col-xl-4">
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
-            <div class="search" v-if="searchVisible" v-click-away="onClickAway">
+            <div class="search" v-if="searchVisible" v-click-away="onClickAway" >
                 <div class="list-group">
                     <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
                 </div>
@@ -58,11 +58,6 @@
     <div class="row justify-content-center gy-2 pt-xl-1 pt-3" v-for="(item, index) in getMeal" :key="index">
         <div class="col-xl-4">
             <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="item.product" @change="update(item)">
-            <div class="search" v-click-away="onClickAway" v-if="searchVisible">
-                <div class="list-group">
-                    <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
-                </div>
-            </div>
         </div>
         <div class="col-xl-8 col-11 text-center">
             <div class="row gy-2 justify-content-center">
