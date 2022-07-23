@@ -12,10 +12,10 @@
         <section>
             <div class="container px-4">
                 <div class="row gy-2">
-                    <div class="col-xl-6 col-md-9 col-6">
+                    <div class="col-xl-6 col-md-9 col-7">
                         <Datepicker/>
                     </div>
-                    <div class="col-xl-2 col-md-3 col-6 align-self-end">
+                    <div class="col-xl-2 col-md-3 col-5 align-self-end">
                         <Weight/>
                     </div>
                     <div class="col-xl-4 col-md- align-self-end">
