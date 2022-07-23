@@ -1,14 +1,16 @@
 <template>
-    <div class="row justify-content-center text-center">
-        <div class="col clr p-1">
-             <span class="badge rounded-pill bg-secondary" style="background: #1a202c !important; ">Колебания веса</span>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col clr p-1">
+                <span class="badge rounded-pill bg-secondary" style="background: #1a202c !important; ">Колебания веса</span>
+            </div>
         </div>
-    </div>
-    <div class="row justify-content-center text-center">
-        <div class="col p-0">
-            <canvas id="cnvsLine" width="300" height="130"></canvas>
+        <div class="row justify-content-center text-center">
+            <div class="col p-0">
+                <canvas id="cnvsLine" width="300" height="130"></canvas>
+            </div>
         </div>
-    </div>
+        </div>
 </template>
 
 <script>

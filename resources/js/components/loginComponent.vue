@@ -1,25 +1,25 @@
 <template>
-    <div class='container-fluid auth'>
+    <div class='container auth px-4'>
         <main class='form-signin w-100 m-auto'>
-    <form class="text-center" @submit.prevent="formSubmit">
-        <div class="form-floating" v-if="errors">
-            <div class="text-danger" v-for="(item, index) in errors" :key="index">
-                {{ item.join() }}
-            </div>
-        </div>
+            <form class="text-center" @submit.prevent="formSubmit">
+                <div class="form-floating" v-if="errors">
+                    <div class="text-danger" v-for="(item, index) in errors" :key="index">
+                        {{ item.join() }}
+                    </div>
+                </div>
 
-        <div class="form-floating">
-        <input type="email" name='email' class="form-control" id="floatingInput" placeholder="name@example.com" required v-model="email">
-        <label for="floatingInput">Почта</label>
-        </div>
-        <div class="form-floating">
-        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль" required v-model="password">
-        <label for="floatingPassword">Пароль</label>
-        </div>
-        <button class="w-100 btn btn-lg btn-primary clr-button" type="submit">Войти</button>
-        <router-link to="/register" class="link-light">Зарегистрироваться</router-link>
-    </form>
-    </main>
+                <div class="form-floating">
+                <input type="email" name='email' class="form-control" id="floatingInput" placeholder="name@example.com" required v-model="email">
+                <label for="floatingInput">Почта</label>
+                </div>
+                <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Пароль" required v-model="password">
+                <label for="floatingPassword">Пароль</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary clr-button" type="submit">Войти</button>
+                <router-link to="/register" class="link-light">Зарегистрироваться</router-link>
+            </form>
+        </main>
     </div>
 </template>
 

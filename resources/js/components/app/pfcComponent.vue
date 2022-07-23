@@ -1,17 +1,17 @@
 <template>
-    <div class="clr">
+    <div class="container">
         <notifications position="bottom right"/>
         <span class="badge rounded-pill bg-secondary mb-2">План на день</span>
         
-        <div class="input-group input-group-sm">
-        <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Б</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="pr" @change="updateValue">
-        <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Ж</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="ft" @change="updateValue">
-        <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">У</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="cb" @change="updateValue">
-        <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Ккал</span>
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="Kcal" @change="updateValue">
+        <div class="input-group input-group-sm clr">
+            <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Б</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="pr" @change="updateValue">
+            <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Ж</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="ft" @change="updateValue">
+            <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">У</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="cb" @change="updateValue">
+            <span class="input-group-text fw-bold" id="inputGroup-sizing-sm">Ккал</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" v-model="Kcal" @change="updateValue">
         </div>
     </div>
 </template>

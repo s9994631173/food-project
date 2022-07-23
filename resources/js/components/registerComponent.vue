@@ -1,5 +1,5 @@
 <template>
-    <div class='container-fluid'>
+    <div class='container px-4'>
     <main class='form-signin w-100 m-auto'>
     <form class="text-center" @submit.prevent="formSubmit">
         <div class="form-floating" v-if="errors">

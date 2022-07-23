@@ -1,76 +1,100 @@
 <template>
-<div>
+<div class="container clr">
     <notifications position="bottom right"/>
-    <div class="d-flex">
-        <div class="flex-grow-1 p-1">
+    <div class="row justify-content-center">
+        <div class="col">
             <span class="badge rounded-pill bg-secondary mb-2">{{title.name}}</span>
         </div>
-        <div class="p-1">
-            <span class="badge pr">Б <span> {{ nutritions.pr }} </span></span>
-        </div>
-        <div class="p-1">
-            <span class="badge ft">Ж <span> {{ nutritions.ft }} </span></span>
-        </div>
-        <div class="p-1">
-            <span class="badge cb">У <span> {{ nutritions.cb }} </span></span>
-        </div>
-        <div class="p-1">
+        <div class="col-auto text-end">
+            <span class="badge pr me-2">Б <span> {{ nutritions.pr }} </span></span>
+            <span class="badge ft me-2">Ж <span> {{ nutritions.ft }} </span></span>
+            <span class="badge cb me-2">У <span> {{ nutritions.cb }} </span></span>
             <span class="badge bg-light text-dark">Ккал <span> {{ nutritions.KKAL }} </span></span>
         </div>
     </div>
-    <div class="row g-3">
-        <div class="col-4">
-            <input type="text" class="form-control form-control-sm mb-2" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
+    <div class="row justify-content-center gy-2 pt-2">
+        <div class="col-xl-4">
+            <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="newProduct.product" @click="searchVisible = true" @input="presearch">
             <div class="search" v-click-away="onClickAway" v-if="searchVisible">
                 <div class="list-group">
                     <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
                 </div>
             </div>
         </div>
-        <div class="col-7">
-            <div class="input-group input-group-sm">
-                <div class="input-group-text">Гр.</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight" @focus="saveNewProdProps" @input='calcAppend'>
-                <div class="input-group-text">Б</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.pr">
-                <div class="input-group-text">Ж</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.ft">
-                <div class="input-group-text">У</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.cb">
-                <div class="input-group-text">Ккал</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.KKAL">
+        <div class="col-xl-8 col-11 text-center">
+            <div class="row gy-2 justify-content-center">
+                <div class="col-xl-2 col-4 p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Гр.</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.weight" @focus="saveNewProdProps" @input='calcAppend'>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-4 p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Ккал</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.KKAL">
+                    </div>
+                </div>
+                <div class="col-10 col-xl p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Б</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.pr">
+                        <div class="input-group-text">Ж</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.ft">
+                        <div class="input-group-text">У</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="newProduct.cb">
+                    </div>
+                </div>
+                <div class="col-2 col-xl-auto sm-p-0">
+                    <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
+                        <span class="sr-only"></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 💪🏽 </button>
+                </div>
             </div>
-        </div>
-        <div class="col-1">
-            <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
-                <span class="sr-only"></span>
-            </div>
-            <button type="button" class="btn btn-outline-success btn-sm" @click="addProduct" v-else> 💪🏽 </button>
         </div>
     </div>
-    <div class="row g-3" v-for="(item, index) in getMeal" :key="index">
-        <div class="col-4">
-            <input type="text" class="form-control form-control-sm mb-2" placeholder="" v-model="item.product" @change="update(item)">
-        </div>
-        <div class="col-7">
-            <div class="input-group input-group-sm">
-                <div class="input-group-text">Гр.</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(item)" @input="calc(index)">
-                <div class="input-group-text">Б</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.pr" @change="update(item)">
-                <div class="input-group-text">Ж</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.ft" @change="update(item)">
-                <div class="input-group-text">У</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(item)">
-                <div class="input-group-text">Ккал</div>
-                <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(item)">
+
+    <div class="row justify-content-center gy-2 pt-xl-1 pt-3" v-for="(item, index) in getMeal" :key="index">
+        <div class="col-xl-4">
+            <input type="text" class="form-control form-control-sm" placeholder="Добавить продукт" v-model="item.product" @change="update(item)">
+            <div class="search" v-click-away="onClickAway" v-if="searchVisible">
+                <div class="list-group">
+                    <button class="list-group-item list-group-item-action" v-for="(item, index) in search" :key="index" @click="select(item)">{{item.prod_title}}</button>
+                </div>
             </div>
         </div>
-        <div class="col-1">
-            <div class="spinner-border text-warning" role="status" v-if="item.loading">
-                <span class="sr-only"></span>
+        <div class="col-xl-8 col-11 text-center">
+            <div class="row gy-2 justify-content-center">
+                <div class="col-xl-2 col-4 p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Гр.</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.weight" @change="update(item)" @input="calc(index)">
+                    </div>
+                </div>
+                <div class="col-xl-3 col-4 p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Ккал</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.KKAL" @change="update(item)">
+                    </div>
+                </div>
+                <div class="col-10 col-xl p-0 text-center">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-text">Б</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.pr" @change="update(item)">
+                        <div class="input-group-text">Ж</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.ft" @change="update(item)">
+                        <div class="input-group-text">У</div>
+                        <input type="text" class="form-control form-control-sm" id="autoSizingInputGroup" v-model="item.cb" @change="update(item)">
+                    </div>
+                </div>
+                <div class="col-2 col-xl-auto sm-p-0">
+                    <div class="spinner-border text-warning" role="status" v-if="newProduct.loading">
+                        <span class="sr-only"></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 👋🏾 </button>
+                </div>
             </div>
-            <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(item)" v-else> 👋🏾 </button>
         </div>
     </div>
 </div>

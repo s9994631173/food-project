@@ -4,16 +4,15 @@
         <h1 class="display-5 fw-bold">{{ week }}</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-auto" v-click-away="onClickAway">
+<div class="row" v-click-away="onClickAway">
+    <div class="col-auto">
         <span class="chngDate text-white-50" @click="show = !show"> {{ date.toLocaleString('ru', {year: 'numeric', month: 'long', day: 'numeric'}) }} </span>
     </div>
-</div>
-<div class="row calendar" v-show="show" style="position:absolute;">
-    <div class="col-auto">
+    <div class="col-auto position-absolute" v-show="show" style="z-index: 10;">
         <Calendar v-model="date" is-dark/>
     </div>
 </div>
+
 </template>
 
 <script>
@@ -47,6 +46,7 @@ export default{
         date (){
             this.$store.commit('setDate', this.date)
             this.$store.dispatch('getData')
+            this.show = false
         }
     },
 }

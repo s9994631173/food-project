@@ -1,16 +1,17 @@
 <template>
+<div class="container">
     <div class="row justify-content-center clr">
         <div class="row justify-content-center">
-            <div class="col-auto p-1">
+            <div class="col p-1">
                 <span class="badge pr">Б <span> {{ fact.pr }} ({{ Math.round(plan.pr - fact.pr) < 0 ? 0 : Math.round(plan.pr - fact.pr) }})</span></span>
             </div>
-            <div class="col-auto p-1">
+            <div class="col p-1">
                 <span class="badge ft">Ж <span> {{ fact.ft }} ({{ Math.round(plan.ft - fact.ft) < 0 ? 0 : Math.round(plan.ft - fact.ft) }})</span></span>
             </div>
-            <div class="col-auto p-1">
+            <div class="col p-1">
                 <span class="badge cb">У <span> {{ fact.cb }} ({{ Math.round(plan.cb - fact.cb) < 0 ? 0 : Math.round(plan.cb - fact.cb) }})</span></span>
             </div>
-            <div class="col-auto p-1">
+            <div class="col p-1">
                 <span class="badge bg-light text-dark">Ккал <span> {{ fact.KKAL }} ({{ Math.round(plan.KKAL - fact.KKAL) < 0 ? 0 : Math.round(plan.KKAL - fact.KKAL) }})</span></span>
             </div>
         </div>
@@ -21,6 +22,7 @@
             <canvas id="cnvs" width="300" height="300"></canvas>
         </div>
     </div>
+</div>
 </template>
 
 <script>

@@ -26,6 +26,7 @@ BODY{
     max-height: 200px;
     max-width: 350px;
     overflow: auto;
+    z-index: 10;
 }
 .spinner-border{
     width: 35px !important;

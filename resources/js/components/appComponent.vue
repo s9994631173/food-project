@@ -1,47 +1,73 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-auto">
-                <Header/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <Datepicker/>
-            </div>
-            <div class="col-2 align-self-end">
-                <Weight/>
-            </div>
-            <div class="col-4 align-self-end">
-                <PFC/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-3 gy-3" style="min-width: 300px;">
-                <div class="row justify-content-center">
-                    <div class="col-auto text-center">
-                        <Dials/>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-auto text-center">
-                        <Line/>
+        <header>
+            <div class="container-fluid">
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <Header/>
                     </div>
                 </div>
             </div>
-            <div class="col gy-2" style="min-width: 500px;">
-                <div class="row text-center justify-content-end">
-                    <SelectMeal/>
+        </header>
+
+        <section>
+            <div class="container px-4">
+                <div class="row gy-2">
+                    <div class="col-xl-6 col-md-9 col-6">
+                        <Datepicker/>
+                    </div>
+                    <div class="col-xl-2 col-md-3 col-6 align-self-end">
+                        <Weight/>
+                    </div>
+                    <div class="col-xl-4 col-md- align-self-end">
+                        <PFC/>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <section>
+            <div class="container px-4">
+                <div class="row">
+                    <div class="col-xl-4 gy-3">
+                        <div class="row justify-content-center gx-5">
+                            <div class="col col-md-6 col-xl-12 text-center">
+                                <Dials/>
+                            </div>
+                            <div class="col col-md-6 col-xl-12 text-center">
+                                <Line/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col gy-3">
+                        <div class="p-1">
+                            <Meal :title="{name: 'Завтрак', title: 'breakfast'}"/>
+                        </div>
+                        <div class="p-1">
+                            <Meal :title="{name: 'Бранч', title: 'brunch'}"/>
+                        </div>
+                        <div class="p-1">
+                            <Meal :title="{name: 'Обед', title: 'lunch'}"/>
+                        </div>
+                        <div class="p-1">
+                            <Meal :title="{name: 'Перекус', title: 'lunch2'}"/>
+                        </div>
+                        <div class="p-1">
+                            <Meal :title="{name: 'Ужин', title: 'dinner'}"/>
+                        </div>
+                        <div class="p-1">
+                            <Meal :title="{name: 'Ужин 2', title: 'dinner2'}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 </template>
 
 <script>
 import Header from './app/headerComponent.vue'
 import Datepicker from './app/datepickerComponent.vue'
-import SelectMeal from './app/foods/selectmealComponent.vue'
+
+import Meal from './app/foods/mealComponent.vue'
 
 import Weight from './app/weightComponent.vue'
 import PFC from './app/pfcComponent.vue'
@@ -60,7 +86,7 @@ export default{
         Mobile,
         Header,
         Datepicker,
-        SelectMeal
+        Meal
     },
     data: () => {
         return{
